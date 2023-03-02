@@ -3,7 +3,8 @@ const app = express()
 const getProducts = require('../Controllers/products.controller')
 const Auth = require('../Middlewares/auth.middleware');
 const User = require('../Models/User.model')
-const updateOrders = require('../Controllers/ordes.controller')
+const updateOrders = require('../Controllers/updateOrders.controller')
+const getOrders = require('../Controllers/getOrders.controller')
 const router = express.Router()
 
 
@@ -18,9 +19,9 @@ router.put('/orders', Auth, async (req, res) => {
     res.send(updateOrder)
 });
 
-router.get('/orders', Auth, async (req, res) => {
-    const orders = await User.findByPk(req.user.id);
-    res.send(orders)
+router.get('/orders/:order_id?', Auth, async (req, res) => {
+    const orders = await getOrders(req, res);
+    res.send({ status: 'success', data: orders })
 })
 
 
