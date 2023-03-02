@@ -11,7 +11,6 @@ services:
       - DATABASE_URL=postgres://jonar:1234@db:5432/challenge
     restart: on-failure
     entrypoint: /dbMigrationAndSeed.sh
-    #command: sleep 5 && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && tail -f /dev/null
   db:
     image: postgres
     environment:
