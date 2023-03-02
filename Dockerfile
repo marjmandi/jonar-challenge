@@ -1,12 +1,13 @@
 FROM node:18
 
 COPY package*.json ./
-RUN npm ci --only=production
-RUN npx sequelize-cli db:migrate
-RUN npx sequelize-cli db:seed:all
+RUN npm ci
 
 COPY . .
 
+RUN chmod +x /dbMigrationAndSeed.sh
+
+
 EXPOSE 8080
 
-CMD [ "node", "main.js" ]
+# CMD [ "node", "server.js" ]

@@ -9,7 +9,9 @@ services:
       - db
     environment:
       - DATABASE_URL=postgres://jonar:1234@db:5432/challenge
-    restart: always
+    restart: on-failure
+    entrypoint: /dbMigrationAndSeed.sh
+    #command: sleep 5 && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && tail -f /dev/null
   db:
     image: postgres
     environment:
@@ -18,5 +20,7 @@ services:
       - POSTGRES_DB=challenge
     volumes:
       - db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
 volumes:
   db-data:
