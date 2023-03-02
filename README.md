@@ -15,7 +15,7 @@ I uses JWT for authorizatio. Since this application has no authentication page I
 To deploy this project run
 
 ```bash
-  docker composer up -d
+  docker compose up -d
 ```
 
 Plus I mapped port 5433 on host to port 5432 on db container to make accessing db easier in sake of reviewing.
