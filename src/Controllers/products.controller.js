@@ -14,7 +14,10 @@ const productList = async () => {
             stock: {
                 [Op.gt]: 0
             }
-        }
+        },
+        attributes: {
+            exclude: ['sold', 'stock', 'active', 'createdAt', 'updatedAt']
+        },
     })
 }
 

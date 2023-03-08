@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const User = require('./User.model');
+const Product = require('./Products.model')
 require('dotenv').config()
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
@@ -33,6 +34,6 @@ const Order = sequelize.define("Order", {
 });
 
 User.hasMany(Order, { sourceKey: 'id', foreignKey: 'userId' })
-Order.belongsTo(User, { sourceKey: 'userId', foreignKey: 'id' })
+Order.belongsTo(User, { sourceKey: 'userId', as: 'user', foreignKey: 'id' })
 
 module.exports = Order

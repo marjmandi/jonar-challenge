@@ -1,7 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const Order = require("./Orders.model");
 const Product = require("./Products.model");
-const User = require("./User.model");
 require('dotenv').config();
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
@@ -14,18 +12,10 @@ const ProductsOrder = sequelize.define('ProductOrder', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: User,
-            key: 'id'
-        }
     },
     orderId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: Order,
-            key: 'id'
-        }
     },
     productId: {
         type: DataTypes.INTEGER,
@@ -48,6 +38,9 @@ const ProductsOrder = sequelize.define('ProductOrder', {
     timestamps: true,
     tableName: 'Products_Orders'
 });
+
+ProductsOrder.belongsTo(Product, { sourceKey: 'productId', as: 'product', foreignKey: 'id' })
+Product.hasMany(ProductsOrder, { sourceKey: 'id', foreignKey: 'productId' })
 
 
 module.exports = ProductsOrder
